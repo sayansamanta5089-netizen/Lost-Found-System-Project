@@ -14,7 +14,7 @@
 
 <div class="card item-card">
 
-<img src="/static/uploads/{{i[8]}}" class="item-image">
+<img src="{{ url_for('static', filename='uploads/' + i[8]) }}" class="item-image">
 
 <h3>{{i[2]}}</h3>
 
