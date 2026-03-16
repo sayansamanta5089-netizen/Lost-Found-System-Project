@@ -1,21 +1,25 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
 import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = os.path.join("lost_found_project","static","uploads")
+# -------- UPLOAD FOLDER --------
+
+UPLOAD_FOLDER = os.path.join("static", "uploads")
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+# -------- CATEGORIES --------
 
 categories = [
 "Mobile Phone","Wallet","Bag","Laptop","Keys",
 "Documents","Jewelry","ID Card","Headphones","Other"
 ]
 
-# ---------------- DATABASE ----------------
+# -------- DATABASE --------
 
 def init_db():
 
@@ -58,7 +62,7 @@ def init_db():
 
 init_db()
 
-# ---------------- DASHBOARD ----------------
+# -------- DASHBOARD --------
 
 @app.route("/")
 def dashboard():
@@ -99,7 +103,7 @@ def dashboard():
         notification_count=notification_count
     )
 
-# ---------------- VIEW ITEMS ----------------
+# -------- VIEW ITEMS --------
 
 @app.route("/items")
 def items():
@@ -121,7 +125,7 @@ def items():
 
     return render_template("items.html", items=items)
 
-# ---------------- REPORT ITEM ----------------
+# -------- REPORT ITEM --------
 
 @app.route("/report", methods=["GET","POST"])
 def report():
@@ -137,9 +141,13 @@ def report():
         place = request.form["place"]
 
         image = request.files["image"]
-        filename = image.filename
 
-        image.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+        filename = None
+
+        if image and image.filename != "":
+            filename = secure_filename(image.filename)
+            filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+            image.save(filepath)
 
         conn = sqlite3.connect("database.db")
         c = conn.cursor()
@@ -156,7 +164,7 @@ def report():
 
     return render_template("report.html", categories=categories)
 
-# ---------------- SEND MESSAGE ----------------
+# -------- SEND MESSAGE --------
 
 @app.route("/send_message", methods=["POST"])
 def send_message():
@@ -177,7 +185,7 @@ def send_message():
 
     return redirect("/items")
 
-# ---------------- CLAIM ITEM ----------------
+# -------- CLAIM ITEM --------
 
 @app.route("/claim", methods=["POST"])
 def claim():
@@ -199,7 +207,7 @@ def claim():
 
     return redirect("/items")
 
-# ---------------- DELETE ITEM ----------------
+# -------- DELETE ITEM --------
 
 @app.route("/delete/<int:item_id>")
 def delete_item(item_id):
@@ -214,7 +222,7 @@ def delete_item(item_id):
 
     return redirect("/items")
 
-# ---------------- RUN APP ----------------
+# -------- RUN APP --------
 
 if __name__ == "__main__":
     app.run(debug=True)
