@@ -1,44 +1,66 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h1>Report Lost / Found Item</h1>
+<h1 class="page-title">Report Lost / Found Item</h1>
 
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" class="report-form">
 
+<div class="form-row">
+<div class="form-group">
 <label>Type</label>
 <select name="type">
 <option value="lost">Lost</option>
 <option value="found">Found</option>
 </select>
+</div>
 
+<div class="form-group">
 <label>Item Name</label>
-<input name="name" placeholder="Enter item name" required>
+<input type="text" name="name" placeholder="Enter item name">
+</div>
 
+<div class="form-group">
 <label>Category</label>
 <select name="category">
 {% for c in categories %}
 <option value="{{c}}">{{c}}</option>
 {% endfor %}
 </select>
+</div>
+</div>
 
+
+<div class="form-row">
+<div class="form-group description">
 <label>Description</label>
 <textarea name="desc" placeholder="Describe the item"></textarea>
+</div>
 
+<div class="form-group">
 <label>Date</label>
 <input type="date" name="date">
+</div>
+</div>
 
+
+<div class="form-row">
+<div class="form-group">
 <label>Phone</label>
-<input name="phone" placeholder="Your phone number">
+<input type="text" name="phone" placeholder="Your phone number">
+</div>
 
+<div class="form-group">
 <label>Place</label>
-<input name="place" placeholder="Where it was lost/found">
+<input type="text" name="place" placeholder="Where it was lost/found">
+</div>
 
+<div class="form-group">
 <label>Upload Image</label>
 <input type="file" name="image">
+</div>
+</div>
 
-<br><br>
-
-<button type="submit">Submit Report</button>
+<button class="submit-btn">Submit Report</button>
 
 </form>
 
