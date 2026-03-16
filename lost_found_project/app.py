@@ -7,12 +7,10 @@ app = Flask(__name__)
 
 # -------- UPLOAD FOLDER --------
 
-UPLOAD_FOLDER = os.path.join("static", "uploads")
+UPLOAD_FOLDER = os.path.join("lost_found_project","static","uploads")
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
-# -------- CATEGORIES --------
 
 categories = [
 "Mobile Phone","Wallet","Bag","Laptop","Keys",
