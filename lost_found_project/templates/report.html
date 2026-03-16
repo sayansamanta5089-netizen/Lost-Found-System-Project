@@ -1,48 +1,45 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h1>Report Item</h1>
-
-<div class="card report-card">
+<h1>Report Lost / Found Item</h1>
 
 <form method="POST" enctype="multipart/form-data">
 
-<div class="form-group">
+<label>Type</label>
 <select name="type">
 <option value="lost">Lost</option>
 <option value="found">Found</option>
 </select>
 
-<input name="name" placeholder="Item Name">
+<label>Item Name</label>
+<input name="name" placeholder="Enter item name" required>
 
+<label>Category</label>
 <select name="category">
 {% for c in categories %}
-<option>{{c}}</option>
+<option value="{{c}}">{{c}}</option>
 {% endfor %}
 </select>
-</div>
 
-<div class="form-group">
-<textarea name="desc" placeholder="Description"></textarea>
-</div>
+<label>Description</label>
+<textarea name="desc" placeholder="Describe the item"></textarea>
 
-<div class="form-group">
+<label>Date</label>
 <input type="date" name="date">
-<input name="phone" placeholder="Phone Number">
-</div>
 
-<div class="form-group">
-<input name="place" placeholder="Place / Location">
-</div>
+<label>Phone</label>
+<input name="phone" placeholder="Your phone number">
 
-<div class="form-group">
+<label>Place</label>
+<input name="place" placeholder="Where it was lost/found">
+
+<label>Upload Image</label>
 <input type="file" name="image">
-</div>
 
-<button type="submit">Submit</button>
+<br><br>
+
+<button type="submit">Submit Report</button>
 
 </form>
-
-</div>
 
 {% endblock %}
