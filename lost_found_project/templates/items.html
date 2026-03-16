@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>View Items</h1>
+
+<form method="GET" action="/items">
+<input name="search" placeholder="Search item">
+<button>Search</button>
+</form>
+
+<div class="items-container">
+
+{% for i in items %}
+
+<div class="card item-card">
+
+<img src="/static/uploads/{{i[8]}}" class="item-image">
+
+<h3>{{i[2]}}</h3>
+
+<p><b>Type:</b> {{i[1]}}</p>
+<p><b>Category:</b> {{i[3]}}</p>
+<p><b>Description:</b> {{i[4]}}</p>
+<p><b>Date:</b> {{i[5]}}</p>
+<p><b>Phone:</b> {{i[6]}}</p>
+<p><b>Place:</b> {{i[7]}}</p>
+
+<hr>
+
+<h4>Send Message</h4>
+
+<form method="POST" action="/send_message">
+<input type="hidden" name="item_id" value="{{i[0]}}">
+<textarea name="message" placeholder="Write message"></textarea>
+<button type="submit">Send</button>
+</form>
+
+<hr>
+
+<h4>Claim Item</h4>
+
+<form method="POST" action="/claim">
+<input type="hidden" name="item_id" value="{{i[0]}}">
+<textarea name="proof" placeholder="Explain proof"></textarea>
+<input name="phone" placeholder="Phone number">
+<button type="submit">Submit Claim</button>
+</form>
+
+<a href="/delete/{{i[0]}}" class="btn red">Delete</a>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

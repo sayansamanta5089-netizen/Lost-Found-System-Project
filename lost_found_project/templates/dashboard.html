@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="dashboard-header">
+
+<h1>Dashboard</h1>
+
+<div class="notification">
+
+🔔
+<span class="badge">{{notification_count}}</span>
+
+<div class="notification-box">
+
+<h4>Messages</h4>
+
+{% for m in messages %}
+<p><b>{{m[0]}}</b>: {{m[1]}}</p>
+{% endfor %}
+
+<hr>
+
+<h4>Claim Requests</h4>
+
+{% for c in claims %}
+<p>
+<b>{{c[0]}}</b><br>
+Proof: {{c[1]}}<br>
+Phone: {{c[2]}}
+</p>
+{% endfor %}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cards">
+
+<div class="card lost">
+<h2>Total Lost Items</h2>
+<p>{{lost}}</p>
+</div>
+
+<div class="card found">
+<h2>Total Found Items</h2>
+<p>{{found}}</p>
+</div>
+
+</div>
+
+{% endblock %}

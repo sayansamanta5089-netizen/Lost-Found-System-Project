@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h1>Chat</h1>
+
+<form method="POST">
+
+<input name="name" placeholder="Your Name">
+<input name="msg" placeholder="Message">
+
+<button>Send</button>
+
+</form>
+
+<div class="messages">
+
+{% for m in messages %}
+
+<p><b>{{m[2]}}</b>: {{m[3]}}</p>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}
