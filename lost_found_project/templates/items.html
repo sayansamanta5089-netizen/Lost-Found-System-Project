@@ -5,7 +5,7 @@
 
 <form method="GET" action="/items">
 <input name="search" placeholder="Search item">
-<button>Search</button>
+<button type="submit">Search</button>
 </form>
 
 <div class="items-container">
@@ -14,7 +14,9 @@
 
 <div class="card item-card">
 
+{% if i[8] %}
 <img src="{{ url_for('static', filename='uploads/' + i[8]) }}" class="item-image">
+{% endif %}
 
 <h3>{{i[2]}}</h3>
 
@@ -45,6 +47,8 @@
 <input name="phone" placeholder="Phone number">
 <button type="submit">Submit Claim</button>
 </form>
+
+<br>
 
 <a href="/delete/{{i[0]}}" class="btn red">Delete</a>
 
